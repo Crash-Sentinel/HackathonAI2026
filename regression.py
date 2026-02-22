@@ -82,6 +82,8 @@ class regression:
                 ascending=False
             )
 
+            pd.concat([best_buildings.head(top_n), worst_buildings]).to_csv("energyPerformance.csv")
+
             # Sort ascending and get top row
             worst_building = stats.sort_values(by='worst_energy_per_sqft', ascending=False).iloc[0]
             self.worstEnergyCandidate = worst_building
@@ -180,6 +182,10 @@ class regression:
             ).reset_index()
             
             top = stats_weather.sort_values("worst", ascending=False).head(10)
+            bottom = stats_weather.sort_values("best", ascending=True).head(10)
+
+            pd.concat([top, bottom]).to_csv("weatherPerformance.csv")
+
             self.worstWeatherCandidate = stats_weather.sort_values("worst", ascending=False).iloc[0]
             self.bestWeatherCandidate = stats_weather.sort_values("best", ascending=True).iloc[0]
 
